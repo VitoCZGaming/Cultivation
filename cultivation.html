@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cultivation Randomizer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+    .category {
+      margin-bottom: 30px;
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 8px 15px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-bottom: 5px;
+    }
+    .result {
+      font-weight: bold;
+      background: #e2e2e2;
+      padding: 5px;
+      display: inline-block;
+      min-width: 250px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Cultivation Randomizer</h1>
+
+  <!-- Cultivation Category -->
+  <div class="category">
+    <h2>Cultivation</h2>
+    <button id="btn-cultivation">Roll Cultivation</button>
+    <div id="result-cultivation" class="result"></div>
+  </div>
+
+  <!-- Dao/Affinity/Element Category -->
+  <div class="category">
+    <h2>Dao/Affinity/Element</h2>
+    <button id="btn-dao">Roll Dao/Affinity/Element</button>
+    <div id="result-dao" class="result"></div>
+  </div>
+
+  <!-- Weapon Category -->
+  <div class="category">
+    <h2>Weapon</h2>
+    <button id="btn-weapon">Roll Weapon</button>
+    <div id="result-weapon" class="result"></div>
+  </div>
+
+  <!-- Cultivation Technique Rank -->
+  <div class="category">
+    <h2>Cultivation Technique Rank</h2>
+    <button id="btn-technique">Roll Cultivation Technique Rank</button>
+    <div id="result-technique" class="result"></div>
+  </div>
+
+  <!-- Physique Category -->
+  <div class="category">
+    <h2>Physique</h2>
+    <button id="btn-physique">Roll Physique</button>
+    <div id="result-physique" class="result"></div>
+  </div>
+
+  <!-- Alchemy Skills Category -->
+  <div class="category">
+    <h2>Alchemy Skills</h2>
+    <button id="btn-alchemy">Roll Alchemy Skills</button>
+    <div id="result-alchemy" class="result"></div>
+  </div>
+
+  <!-- Armour Category -->
+  <div class="category">
+    <h2>Armour</h2>
+    <button id="btn-armour">Roll Armour</button>
+    <div id="result-armour" class="result"></div>
+  </div>
+
+  <!-- Talent Category -->
+  <div class="category">
+    <h2>Talent</h2>
+    <button id="btn-talent">Roll Talent</button>
+    <div id="result-talent" class="result"></div>
+  </div>
+
+  <script>
+    // Random selection function
+    function getRandomItem(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    // Define the arrays for each category.
+    const cultivation = [
+      "qi gathering", "qi refinement", "qi condensation", "foundation establishment",
+      "core formation", "bronze core", "silver core", "golden core",
+      "soul formation", "nascent soul", "Quasi-Saint", "saint",
+      "Quasi-Emperor", "Emperor", "immortal ascension", "loose immortal",
+      "earth immortal", "heaven immortal", "chaos immortal", "true immortal",
+      "immortal lord", "immortal king", "immortal emperor", "dao tribulation",
+      "Dao Master", "Dao Grandmaster", "Dao King", "Dao Emperor",
+      "Dao God", "True Dao God", "Supreme Origin King", "Supreme Origin Emperor"
+    ];
+
+    const daoAffinity = [
+      "Flame", "Wind", "Earth", "Water", "Metal", "Thunder",
+      "Light", "Dark", "Explosion", "Creation", "Life", "Death",
+      "Time", "Space", "Foam", "Clothes", "Paper", "Demonspirit",
+      "firespirit", "waterspirit", "earthspirit", "air", "gold",
+      "blood", "ice", "chaos"
+    ];
+
+    const weapon = [
+      "fists", "sword", "spear", "nunchuck", "bow", "guandao",
+      "boxing gloves", "AK-47", "RPG", "Sniper Rifle",
+      "Spiritual Weapon (Sword)", "Spiritual Weapon (Spear)",
+      "spiritual Weapon (Bow)", "GuanDao (Spiritual Weapon)",
+      "Spiritual Ak-47", "spiritual sniper rifle", "spiritual boxing gloves",
+      "hangar", "shoe/flipflop", "belt"
+    ];
+
+    const techniqueRank = [
+      "Mortal", "Spiritual", "Earth", "sky void", "heaven", "origin"
+    ];
+
+    const physique = [
+      "Mortal", "Iron Body", "Golden Body", "Obsidian Body", "Vajra Body",
+      "Golden Vajra Body", "Supreme Demonic Vajra Body", "Yang Body", "Yin Body",
+      "Sword Body", "Yin-Yang Body", "Universe Sword Body", "Poison Body",
+      "True Poison Body", "Divine Dragon Body", "True Celestial Body",
+      "Heavenly Phoenix Body"
+    ];
+
+    const alchemySkills = [
+      "None", "New Alchemist", "Normal Alchemist", "Middle Grade Alchemist",
+      "advanced grade alchemist", "Peak Grade Alchemist", "master grade alchemist",
+      "grandmaster grade alchemist", "immortal grade alchemist", "Dao Grade alchemist",
+      "origin grade alchemist"
+    ];
+
+    const armour = [
+      "Normal Clothes", "Spiritual Clothes", "Low Grade Defensive Armour",
+      "Mid Grade Defensive Armour", "High Grade Defensive Armour", "Peak Grade Defensive Armour",
+      "Grade 1 Spiritual Armour", "Grade 2 Spiritual Armour", "Grade 3 Spirit armor",
+      "grade 4 spirit armor", "grade 5 spirit armor", "grade 6 spirit armor",
+      "grade 7 spirit armor", "grade 8 spirit armor", "grade 9 spirit armor",
+      "Peak Spirit Armor", "heavenly armour (grade 1)", "Heavenly Armour (grade 2)",
+      "Heavenly Armour (grade 3)", "Heavenly Armour (grade 4)", "Heavenly Armour (grade 5)",
+      "Heavenly Armour (grade 6)", "Heavenly Armour (grade 7)", "Heavenly Armour (grade 8)",
+      "Heavenly Armour (grade 9)", "peak Grade heavenly armour", "Void Grade Armour"
+    ];
+
+    const talent = [
+      "Mortal (Untalented)", "quite talented", "talented",
+      "extremely talented", "heavenly gifted", "son of heaven",
+      "wielder of heavenly dao"
+    ];
+
+    // Event listeners to display random selections for each button.
+    document.getElementById('btn-cultivation').addEventListener('click', () => {
+      document.getElementById('result-cultivation').innerText = getRandomItem(cultivation);
+    });
+    
+    document.getElementById('btn-dao').addEventListener('click', () => {
+      document.getElementById('result-dao').innerText = getRandomItem(daoAffinity);
+    });
+    
+    document.getElementById('btn-weapon').addEventListener('click', () => {
+      document.getElementById('result-weapon').innerText = getRandomItem(weapon);
+    });
+    
+    document.getElementById('btn-technique').addEventListener('click', () => {
+      document.getElementById('result-technique').innerText = getRandomItem(techniqueRank);
+    });
+    
+    document.getElementById('btn-physique').addEventListener('click', () => {
+      document.getElementById('result-physique').innerText = getRandomItem(physique);
+    });
+    
+    document.getElementById('btn-alchemy').addEventListener('click', () => {
+      document.getElementById('result-alchemy').innerText = getRandomItem(alchemySkills);
+    });
+    
+    document.getElementById('btn-armour').addEventListener('click', () => {
+      document.getElementById('result-armour').innerText = getRandomItem(armour);
+    });
+    
+    document.getElementById('btn-talent').addEventListener('click', () => {
+      document.getElementById('result-talent').innerText = getRandomItem(talent);
+    });
+  </script>
+</body>
+</html>
